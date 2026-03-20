@@ -1,3 +1,4 @@
+
 #let layouts = (
   "small": ("height": 9cm, "space": 1.4cm),
   "medium": ("height": 10.5cm, "space": 1.6cm),
@@ -52,7 +53,7 @@
     title: title,
     author: authors,
   )
-  set heading(numbering: "1.a")
+
 
   // PAGE----------------------------------------------
   set page(
@@ -66,6 +67,7 @@
         let page = here().page()
         let headings = query(selector(heading.where(level: 2)))
         let heading = headings.rev().find(x => x.location().page() <= page)
+        let body = heading.body
 
         if heading != none {
           set align(top)
@@ -78,7 +80,7 @@
             )[
               #set text(1.4em, weight: "bold", fill: bg-color)
               #v(space / 2)
-              #heading.body
+              #body
               #if not heading.location().page() == page [
                 #{numbering("(i)", page - heading.location().page() + 1)}
               ]
@@ -86,7 +88,7 @@
           } else if (theme == "normal") {
             set text(1.4em, weight: "bold", fill: title-color)
             v(space / 2)
-            heading.body
+            body
             if not heading.location().page() == page [
               #{numbering("(i)", page - heading.location().page() + 1)}
             ]
