@@ -5,10 +5,10 @@
 #let U = titlecase
 #show table: it=> align(center, it)
 #let sym(it) = align(center, it)
-#show "python": "Python"
 #show "minicurso": "MiniCurso"
 #set image(height: 1fr, fit: "contain")
 #show image: it=> align(center, it)
+#let bicolumn(a, b) =  grid(columns : (1fr, 1fr), a, b)
 
 #show: slides.with(
   title: "Introdução A Conceitos Básicos de Programação em 4 Horas",
@@ -27,6 +27,14 @@
   heading(level: 2, outlined: false, it.body)
   
 }
+
+== #U[Acesso ao Slide]
+
+https://intro-python.diegovsky.dev
+
+#image("qrcode.svg")
+
+
 
 = #U[O Que É Uma Linguagem De Programação?]
 Uma linguagem de programação é um conjunto de instruções que utilizamos para dar comandos aos computadores.
@@ -68,7 +76,6 @@ Os tipos comuns que vamos tratar nesse curso são:
   [Inteiro], sym[`int`], [Números inteiros como `10`, `-9`, `0`, `6`, `7`, etc.],
   [Real], sym[`float`],[Números com casas decimais como `3.14`, `1.7777...`, `-0`, etc.],
   [Lógico], sym[`bool`], [Valores possíveis: `True` (verdadeiro) e `False` (falso)],
-  [Lista], sym[`list`], [Representa um conjunto ordenado de coisas, como uma lista de compras]
 )
 
 = #U[Como se manipula esses valores?]
@@ -95,7 +102,7 @@ Valores booleanos podem ser criados escrevendo `True` ou `False`\*. Quando uma c
   columns: 4,
   table.header([Operação], [Símbolo], [Exemplo], [Resultado]),
   [Igual a], sym[`==`], [`1 == 1`], [`True`],
-  [Diferente de], sym[`!=`], [`1 != 1`], [`False`],
+  [Diferente de], sym[`!=`], [`'a' != 'b'`], [`True`],
   [Menor que], sym[`<`], [`2 < 4`], [`True`],
   [Maior que], sym[`>`], [`2 > 4`], [`False`],
   [Negação], sym[`not`], [`not True`], [`False`],
@@ -107,13 +114,13 @@ Valores booleanos podem ser criados escrevendo `True` ou `False`\*. Quando uma c
 \* Atenção, precisa ser maiúsculo!
 
 = #U[Mão na massa!]
-Agora, abra o python interativo na sua máquina. Basta abrir o terminal e digitar `python3`.
+Agora, abra o Python interativo na sua máquina. Basta abrir o terminal e digitar `Python3`.
 
-Aqui, você pode digitar código em python, e após dár enter, o resultado será mostrado:
+Aqui, você pode digitar código em Python, e após dár enter, o resultado será mostrado:
 #image("screenshots/repl.png", width: 100%)
 
 = #U[Configurando o VSCode]
-O VSCode é o ambiente de desenvolvimento integrado (IDE) que utilizaremos para desenvolver python nesse minicurso. Utilizamos ele por ser grátis, de qualidade e utilizado por profissionais no dia-a-dia.
+O VSCode é o ambiente de desenvolvimento integrado (IDE) que utilizaremos para desenvolver Python nesse minicurso. Utilizamos ele por ser grátis, de qualidade e utilizado por profissionais no dia-a-dia.
 
 
 #image("screenshots/vscode0.png")
@@ -131,7 +138,7 @@ Agora, vamos criar o primeiro arquivo. No canto esquerdo superior, você vai enc
 #image("screenshots/vscode2.png")
 
 #pagebreak()
-Eu chamei o meu de "script1.py". Pode usar o nome que quiser, contanto que acabe em ".py". O VSCode deve te falar para instalar a extensão de python, se sim, pode ir no botão azul em baixo na direita escrito "Instalar" ("Install" em inglês).
+Eu chamei o meu de "script1.py". Pode usar o nome que quiser, contanto que acabe em ".py". O VSCode deve te falar para instalar a extensão de Python, se sim, pode ir no botão azul em baixo na direita escrito "Instalar" ("Install" em inglês).
 
 #image("screenshots/vscode3.png")
 
@@ -149,17 +156,37 @@ Por último, feche a aba de IA. Não vamos utilizar isso nesse minicurso, e essa
 
 #image("screenshots/vscode6.svg")
 
+== #U[Como rodar um script]
+Primeiro, vamos garantir que o terminal integrado está aberto:
+
+#bicolumn(
+  image("screenshots/vscode7.png"),
+  image("screenshots/vscode8.png")
+)
+
+#pagebreak()
+#bicolumn([
+E então, basta digitar o seguinte:
+```bash
+python <nome do arquivo>
+```
+
+Onde `<nome do arquivo>` deve ser substituído pelo nome do seu arquivo.
+], image("screenshots/vscode9.png"))
+
+
+
 = #U[Nosso primeiro script]
 == Variáveis
-Até esse ponto, utilizamos valores literais no código, mas agora vamos utilizar variáveis. Variáveis são nomes no python que se referem a um valor.
+Até esse ponto, utilizamos valores literais no código, mas agora vamos utilizar variáveis. Variáveis são nomes no Python que se referem a um valor.
 
 Declarar uma variável é muito simples, basta fazer:
 ```
 <nome> = <valor>
 ```
 
-Onde `<nome>` pode ser qualquer, desde que comece com uma letra e não tenha espaços. \
-Exemplos: `idade`, `i`, `j`, `val`, etc.
+Onde `<nome>` pode ser qualquer palavra, desde que comece com uma letra e não tenha espaços. \
+Exemplos: `idade`, `😳`, `i`, `j`, `Παρουσίαση`, etc.
 
 Já `<valor>` você vêm utilizando desde o começo do minicurso! São coisas como números, strings, booleanos, etc. Além desses, você também pode utilizar variáveis, contanto que elas já tenham sido definidas antes.
 
@@ -178,7 +205,7 @@ Portanto não é possível fazer
 
 
 == #U[Funções Básicas de entrada e saída]
-Até o momento, utilizamos o recurso *interativo* de python, que é bastante útil para o aprendizado e prototipagem, porém, programas reais precisam se comunicar com o mundo exterior.
+Até o momento, utilizamos o recurso *interativo* de Python, que é bastante útil para o aprendizado e prototipagem, porém, programas reais precisam se comunicar com o mundo exterior.
 
 
 #image("diagrams/entrada-e-saida.svg", width: auto)
@@ -187,11 +214,12 @@ Saídas são coisas como o seu monitor, um novo arquivo no seu computador, etc.
 
 #pagebreak()
 
-No python, temos a fução `print()` para imprimir na tela, e `input()` para ler o teclado.
+No Python, temos a fução `print()` para imprimir na tela, e `input()` para ler o teclado.
 
-Como você experimentou o modo interativo de python, pode parecer que a função `print()` é redundante, mas o código escrito no dia-a-dia é feito de várias linhas, e não é desejado que cada linha tenha seu resultado mostrado, então usamos o `print()` para mostrar só aquilo que queremos.
+Como você experimentou o modo interativo de Python, pode parecer que a função `print()` é redundante, mas o código escrito no dia-a-dia é feito de várias linhas, e não é desejado que cada linha tenha seu resultado mostrado, então usamos o `print()` para mostrar só aquilo que queremos.
 
 #image("screenshots/print.png")
+
 
 #pagebreak()
 
@@ -201,5 +229,106 @@ A função `input()` é muito interessante. Ela nos permite criar programas que 
 nome = input("Digite seu nome: ")
 print("Olá", nome)
 ```
-
 #image("screenshots/input.png")
+
+== #U[Adendo: o que são funções?]
+Funções estão fora do escopo desse minicurso, mas é preciso saber identificá-las. O uso delas é facilmente identificável, pois segue a seguinte estrutura:
+
+```python
+<nome>()
+<nome>(arg1, arg2, arg3, ..., argN)
+```
+
+Onde `<nome>` segue a mesma lógica de variáveis, e os valores dentro dos parêntesis (também chamados de "argumentos "ou "parâmetros") são utilizados pela função para fazer algo.
+
+No caso da função `print()`, ela apenas imprime o que recebe na sua tela.
+
+A função `input()` também imprime o que recebe na tela, mas ela também lê o seu teclado e *retorna* (produz) o que você digitou como uma `str`.
+
+
+#let hard(body) = text(fill: red.darken(70%), body)
+
+= #U[Mão na massa!]
+Faça alguns dos exercícios abaixo para testar o que aprendeu:
+
+- Faça um script que leia o nome do usuário e o cumprimente
+- Faça um script que leia dois nomes e imprima-os em ordem reversa
+- #hard[Faça um script que leia dois números e imprima a soma deles]
+- #hard[Faça um script que leia a idade do usuário e imprima o ano em que ele nasceu]
+
+= #U[Conversão de tipos]
+Você provavelmente encontrou o seguinte erro ao tentar realizar algum exercício da seção anterior:
+
+#image("screenshots/str-error.png")
+
+Isso acontece porque a função `input()` tem um resultado do tipo `str`, ou seja texto. Não conseguimos realizar operações aritméticas assim, então precisamos realizar conversão para inteiro.
+
+
+#pagebreak()
+Para fazer a conversão de um valor para outro tipo, basta escrever o nome do tipo seguido de parêntesis, como se fosse uma função:
+
+#image("screenshots/type-conv.png")
+
+= #U[Comandos de decisão]
+== Se
+Até o presente momento, estamos fazendo programas que são capazes de realizar cálculos e imprimir coisas. Porém, isso ainda é bem limitado, pois não é possível resolver problemas como
+```
+se o usuário é menor de idade, deixe entrar, senão, barre sua entrada
+```
+
+Para fazer isso em Python, utilizamos o comando `if` (inglês para "se"), que é utilizado da seguinte maneira:
+```python
+if <valor booleano>:
+  <linha1>
+  <linha2>
+  ...
+```
+
+*Importante*: Para Python, o espaço antes da linha (chamado de indentação) delimita se ela pertence ao `if`.
+
+#pagebreak()
+
+Vamos analisar o seguinte exemplo:
+```python
+idade = int(input('Digite a sua idade'))
+
+if idade >= 18:
+  print("Maior de idade")
+
+print('Seja bem vindo!')
+```
+
+Note que `print('Seja bem vindo!')` será executado independentemente se o usuário for ou não maior de idade, enquanto `print('Seja bem vindo!')` só será executado quando o usuário for maior de idade.
+
+
+
+== Senão
+Muito bom, mas ainda não conseguimos bloquear o usuário caso ele seja menor de idade, ou seja, a parte de:
+```
+senão, barre sua entrada
+```
+
+O comando `if` pode ser seguido opcionalmente do comando `else` (inglês para "senão"):
+
+```python
+idade = int(input('Digite a sua idade'))
+
+if idade >= 18:
+  print('Seja bem vindo!')
+  print('<Coisas de adulto como imposto de renda e calvice aos 20>')
+
+else:
+  print('Usuário não tem a idade necessária')
+  desligar_computador()
+```
+
+= #U[Mão na massa!]
+- Faça um script que leia dois números e imprima a soma deles
+- Faça um script que leia a idade do usuário e imprima o ano em que ele nasceu
+- Leia uma temperatura em Fahrenheit e converta para Celsius
+- Imprima o maior de dois números
+- Imprima o maior de três números
+- Leia a idade do usuário e o classifique como criança (< 14), adolescente (14-18) ou adulto (18+)
+- Leia dois números e um símbolo de operação (`+`, `-`, `*`, `/`) e imprima o resultado do cálculo
+
+= Muito obrigado por comparecer!
